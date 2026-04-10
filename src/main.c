@@ -13,17 +13,19 @@ int main(int argc, char **argv)
 
     char exe_path[512];
     char app_dir[512];
+    char *dir = NULL;
+
     ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path)-1);
     if (len != -1) {
         exe_path[len] = '\0';
-        char *dir = g_path_get_dirname(exe_path);
+        dir = g_path_get_dirname(exe_path);
         g_snprintf(app_dir, sizeof(app_dir), "%s/locale", dir);
         g_setenv("XBPS_LOCALE_DIR", app_dir, FALSE);
-        g_free(dir);
     }
 
     setlocale(LC_ALL, "");
-    load_translations();
+    load_translations(dir);
+    g_free(dir);
 
     if (xbps_init(&xhp) != 0) {
         g_printerr("Failed to initialize XBPS: %s\n", strerror(errno));

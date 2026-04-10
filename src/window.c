@@ -6,31 +6,60 @@
 
 static GHashTable *translations = NULL;
 
-static void find_translations_dir(char *path, size_t len)
+static void find_translations_dir(const char *exe_dir)
 {
     const char *lang = getenv("LANG");
-    FILE *fp;
+    FILE *fp = NULL;
     char line[512];
-    char *dirs[] = { "locale", "../locale", "../../locale", NULL };
+    char lang_base[32] = "en";
 
-    translations = g_hash_table_new(g_str_hash, g_str_equal);
+    /* Extract base language (e.g., "zh_CN" from "zh_CN.UTF-8") */
+    if (lang && strlen(lang) >= 2) {
+        strncpy(lang_base, lang, sizeof(lang_base) - 1);
+        lang_base[sizeof(lang_base) - 1] = '\0';
+        char *dot = strchr(lang_base, '.');
+        if (dot) *dot = '\0';
+    }
+
+    translations = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+
+    const char *dirs[4];
+    char buf1[512], buf2[512], buf3[512];
+
+    if (exe_dir) {
+        snprintf(buf1, sizeof(buf1), "%s/locale", exe_dir);
+        snprintf(buf2, sizeof(buf2), "%s/../locale", exe_dir);
+        snprintf(buf3, sizeof(buf3), "%s/../../locale", exe_dir);
+        dirs[0] = buf1;
+        dirs[1] = buf2;
+        dirs[2] = buf3;
+    } else {
+        dirs[0] = "locale";
+        dirs[1] = "../locale";
+        dirs[2] = "../../locale";
+    }
+    dirs[3] = NULL;
 
     for (int i = 0; dirs[i]; i++) {
-        char trans_path[256];
-        snprintf(trans_path, sizeof(trans_path), "%s/%s.txt", dirs[i], lang ? lang : "en");
+        char trans_path[512];
+        /* Try full locale (e.g., zh_CN.txt) */
+        snprintf(trans_path, sizeof(trans_path), "%s/%s.txt", dirs[i], lang_base);
         fp = fopen(trans_path, "r");
-        if (!fp && lang && strlen(lang) >= 2) {
-            snprintf(trans_path, sizeof(trans_path), "%s/%c%c.txt", dirs[i], lang[0], lang[1]);
+        /* Try short locale (e.g., zh.txt) */
+        if (!fp && strlen(lang_base) >= 2) {
+            snprintf(trans_path, sizeof(trans_path), "%s/%.2s.txt", dirs[i], lang_base);
             fp = fopen(trans_path, "r");
         }
         if (fp) {
             while (fgets(line, sizeof(line), fp)) {
                 char *key, *value;
                 line[strcspn(line, "\n")] = 0;
-                if (strchr(line, '=')) {
-                    key = strtok(line, "=");
-                    value = strtok(NULL, "=");
-                    if (key && value) {
+                char *eq = strchr(line, '=');
+                if (eq) {
+                    *eq = '\0';
+                    key = line;
+                    value = eq + 1;
+                    if (key[0] && value[0]) {
                         g_hash_table_insert(translations, g_strdup(key), g_strdup(value));
                     }
                 }
@@ -41,9 +70,9 @@ static void find_translations_dir(char *path, size_t len)
     }
 }
 
-void load_translations(void)
+void load_translations(const char *exe_dir)
 {
-    find_translations_dir(NULL, 0);
+    find_translations_dir(exe_dir);
 }
 
 void free_translations(void)

@@ -28,6 +28,8 @@ uname -v = #1 SMP PREEMPT_DYNAMIC Thu Apr  2 16:55:52 UTC 2026
 /bin/universe          = unknown
 
 PATH: /home/zemi/.npm-global/bin/
+PATH: /home/zemi/xbps-git/usr/bin/
+PATH: /home/zemi/.npm-global/bin/
 PATH: /home/zemi/.local/share/pnpm/
 PATH: /home/zemi/miniconda3/condabin/
 PATH: /home/zemi/xbps-git/usr/bin/

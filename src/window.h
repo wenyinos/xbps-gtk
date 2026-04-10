@@ -33,7 +33,7 @@ typedef struct {
     struct xbps_handle *xhp;
 } XbpsGtkApp;
 
-void load_translations(void);
+void load_translations(const char *exe_dir);
 void free_translations(void);
 const char *_(const char *msg);
 
