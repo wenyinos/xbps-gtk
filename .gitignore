@@ -1,0 +1,7 @@
+xbps-gtk
+src/xbps_gtk-callbacks.o
+src/xbps_gtk-main.o
+src/xbps_gtk-package.o
+src/xbps_gtk-repository.o
+src/xbps_gtk-transaction.o
+src/xbps_gtk-window.o
