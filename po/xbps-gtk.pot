@@ -1,0 +1,92 @@
+# Messages for XBPS GTK.
+# Copyright (C) 2024 XBPS GTK
+# This file is distributed under the same license as the XBPS GTK package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xbps-gtk 0.1\n"
+"Report-Msgid-Bugs-To: xbps@voidlinux.org\n"
+"POT-Creation-Date: 2024\n"
+"PO-Revision-Date: 2024\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/window.c
+msgid "XBPS Package Manager"
+msgstr ""
+
+#: src/window.c
+msgid "Search packages..."
+msgstr ""
+
+#: src/window.c
+msgid "Sync Repos"
+msgstr ""
+
+#: src/window.c
+msgid "Package Details"
+msgstr ""
+
+#: src/window.c
+msgid "Name:"
+msgstr ""
+
+#: src/window.c
+msgid "Version:"
+msgstr ""
+
+#: src/window.c
+msgid "Description:"
+msgstr ""
+
+#: src/window.c
+msgid "Repository:"
+msgstr ""
+
+#: src/window.c
+msgid "Install"
+msgstr ""
+
+#: src/window.c
+msgid "Remove"
+msgstr ""
+
+#: src/window.c
+msgid "Update"
+msgstr ""
+
+#: src/window.c
+msgid "Ready"
+msgstr ""
+
+#: src/window.c
+msgid "Syncing repositories..."
+msgstr ""
+
+#: src/window.c
+msgid "Repositories synced"
+msgstr ""
+
+#: src/window.c
+msgid "Installing..."
+msgstr ""
+
+#: src/window.c
+msgid "Installation complete"
+msgstr ""
+
+#: src/window.c
+msgid "Removing..."
+msgstr ""
+
+#: src/window.c
+msgid "Removal complete"
+msgstr ""
+
+#: src/window.c
+msgid "N/A"
+msgstr ""

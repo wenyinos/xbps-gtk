@@ -1,0 +1,2 @@
+src/xbps_gtk-transaction.o: src/transaction.c /usr/include/stdc-predef.h
+/usr/include/stdc-predef.h:

@@ -1,0 +1,2 @@
+src/xbps_gtk-callbacks.o: src/callbacks.c /usr/include/stdc-predef.h
+/usr/include/stdc-predef.h:
